@@ -7,7 +7,7 @@ spring:
       client:
         config:
           database-provider:
-            url: http://localhost:8081
+            url: http://${DEV_ENV_HOST}:8081
 
 server:
   port: 8082
@@ -18,9 +18,9 @@ feign:
     endpoints:
       register: /register
       login: /login
-      get-user-info: /getUserInfo
-      update-username: /updateUsername
-      get-user-by-email: /getUserByEmail
+      get-user-info: /info
+      update-username: /update-username
+      get-user-by-email: /by-email
 
 jwt:
   secret: {JWT_SECRET}
