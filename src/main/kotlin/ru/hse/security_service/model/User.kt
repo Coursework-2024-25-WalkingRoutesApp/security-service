@@ -1,6 +1,5 @@
-package ru.hse.api_gateway.model
+package ru.hse.security_service.model
 
-import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.UUID

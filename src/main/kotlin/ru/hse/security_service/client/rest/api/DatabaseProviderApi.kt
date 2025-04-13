@@ -1,4 +1,4 @@
-package ru.hse.api_gateway.client.rest.api
+package ru.hse.security_service.client.rest.api
 
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.ResponseEntity
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestParam
-import ru.hse.api_gateway.dto.UserDto
-import ru.hse.api_gateway.dto.UserSecurityDto
+import ru.hse.security_service.dto.UserDto
+import ru.hse.security_service.dto.UserSecurityDto
 import java.util.*
 
 @FeignClient(name = "database-provider", path = "\${feign.user-api.base-path}")

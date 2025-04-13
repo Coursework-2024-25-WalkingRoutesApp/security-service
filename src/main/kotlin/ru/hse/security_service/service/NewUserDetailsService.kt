@@ -1,13 +1,11 @@
-package ru.hse.api_gateway.service
+package ru.hse.security_service.service
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
-import ru.hse.api_gateway.client.rest.api.DatabaseProviderApi
-import ru.hse.api_gateway.model.User
-import ru.hse.api_gateway.model.converter.UserSecurityDtoToUserDetailsConverter
+import ru.hse.security_service.client.rest.api.DatabaseProviderApi
+import ru.hse.security_service.model.User
+import ru.hse.security_service.model.converter.UserSecurityDtoToUserDetailsConverter
 
 @Service
 class NewUserDetailsService(

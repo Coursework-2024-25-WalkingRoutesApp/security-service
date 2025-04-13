@@ -1,16 +1,11 @@
-package ru.hse.api_gateway.controller
+package ru.hse.security_service.controller
 
-import GET_USER_INFO_URL
-import LOGIN_URL
-import REGISTER_URL
-import UPDATE_USERNAME_URL
-import USER_BASE_PATH_URL
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
-import ru.hse.api_gateway.model.User
-import ru.hse.api_gateway.service.UserService
+import ru.hse.security_service.model.User
+import ru.hse.security_service.service.UserService
 import java.util.*
 import kotlin.io.encoding.ExperimentalEncodingApi
 

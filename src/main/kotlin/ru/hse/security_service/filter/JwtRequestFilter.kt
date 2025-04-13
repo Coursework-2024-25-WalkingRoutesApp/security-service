@@ -1,4 +1,4 @@
-package ru.hse.api_gateway.filter
+package ru.hse.security_service.filter
 
 import io.jsonwebtoken.JwtException
 import jakarta.servlet.FilterChain
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import ru.hse.api_gateway.service.JwtService
+import ru.hse.security_service.service.JwtService
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 @Component

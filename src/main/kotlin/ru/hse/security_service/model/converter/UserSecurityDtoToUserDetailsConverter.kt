@@ -1,10 +1,10 @@
-package ru.hse.api_gateway.model.converter
+package ru.hse.security_service.model.converter
 
 import org.springframework.core.convert.converter.Converter
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
-import ru.hse.api_gateway.dto.UserSecurityDto
-import ru.hse.api_gateway.model.User
+import ru.hse.security_service.dto.UserSecurityDto
+import ru.hse.security_service.model.User
 
 @Component
 class UserSecurityDtoToUserDetailsConverter : Converter<UserSecurityDto, UserDetails> {

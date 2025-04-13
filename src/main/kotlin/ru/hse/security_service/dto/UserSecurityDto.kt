@@ -1,4 +1,4 @@
-package ru.hse.api_gateway.dto
+package ru.hse.security_service.dto
 
 import java.util.UUID
 
