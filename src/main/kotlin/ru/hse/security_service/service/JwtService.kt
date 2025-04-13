@@ -1,13 +1,12 @@
-package ru.hse.api_gateway.service
+package ru.hse.security_service.service
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.slf4j.LoggerFactory
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
-import ru.hse.api_gateway.config.JwtProperties
-import ru.hse.api_gateway.model.User
+import ru.hse.security_service.config.JwtProperties
+import ru.hse.security_service.model.User
 import java.util.*
 import javax.crypto.SecretKey
 import kotlin.io.encoding.Base64
@@ -16,7 +15,7 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 @Service
 @ExperimentalEncodingApi
 class JwtService(
-    private val jwtProperties: JwtProperties
+    jwtProperties: JwtProperties
 ) {
 
     private val secretKey: SecretKey = Keys.hmacShaKeyFor(Base64.decode(jwtProperties.secret))

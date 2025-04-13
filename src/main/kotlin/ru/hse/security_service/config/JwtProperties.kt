@@ -1,4 +1,4 @@
-package ru.hse.api_gateway.config
+package ru.hse.security_service.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

@@ -1,8 +1,5 @@
-package ru.hse.api_gateway.config
+package ru.hse.security_service.config
 
-import LOGIN_URL
-import REGISTER_URL
-import USER_BASE_PATH_URL
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -13,8 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import ru.hse.api_gateway.filter.JwtRequestFilter
-import ru.hse.api_gateway.service.NewUserDetailsService
+import ru.hse.security_service.controller.LOGIN_URL
+import ru.hse.security_service.controller.REGISTER_URL
+import ru.hse.security_service.controller.USER_BASE_PATH_URL
+import ru.hse.security_service.filter.JwtRequestFilter
+import ru.hse.security_service.service.NewUserDetailsService
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 @Configuration
@@ -32,7 +32,7 @@ class SecurityConfiguration(
 
     @Bean
     fun authenticationProvider(): AuthenticationProvider {
-        val provider: DaoAuthenticationProvider = DaoAuthenticationProvider()
+        val provider = DaoAuthenticationProvider()
         provider.setUserDetailsService(newUserDetailsService)
         provider.setPasswordEncoder(passwordEncoder())
         return provider

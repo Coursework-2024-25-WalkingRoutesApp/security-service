@@ -1,4 +1,4 @@
-package ru.hse.api_gateway.service
+package ru.hse.security_service.service
 
 import feign.FeignException
 import org.slf4j.LoggerFactory
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import ru.hse.api_gateway.client.rest.api.DatabaseProviderApi
-import ru.hse.api_gateway.dto.UserDto
+import ru.hse.security_service.client.rest.api.DatabaseProviderApi
+import ru.hse.security_service.dto.UserDto
 import java.util.*
 import kotlin.io.encoding.ExperimentalEncodingApi
 
