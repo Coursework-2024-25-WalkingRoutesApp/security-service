@@ -49,7 +49,7 @@ class UserService(
             val userSecurityDto = databaseProviderApi.login(email, password)
                 ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Пользователь с таким email не найден")
 
-            if (passwordEncoder.encode(password).equals(userSecurityDto.password)) {
+            if (!passwordEncoder.matches(password, userSecurityDto.password)) {
                 logger.error("Invalid password for user with email $email")
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Неверный пароль")
             }
