@@ -14,7 +14,7 @@ server:
 
 feign:
   user-api:
-    base-path: /api/route-provider/security
+    base-path: /api/data-provider/security
     endpoints:
       register: /register
       login: /login
