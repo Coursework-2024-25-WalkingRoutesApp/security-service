@@ -44,6 +44,16 @@ class UserController(
         }
     }
 
+    @PutMapping(UPDATE_USER_PHOTO_URL)
+    fun updateUserPhoto(
+        @AuthenticationPrincipal user: User?,
+        @RequestParam photoUrl: String
+    ): ResponseEntity<Any> {
+        return withUserId(user) { userId ->
+            ResponseEntity.ok(userService.updateUserPhoto(userId, photoUrl))
+        }
+    }
+
     private fun withUserId(user: User?, block: (UUID) -> ResponseEntity<Any>): ResponseEntity<Any> {
         val userId = user?.id
         return if (userId != null) {
