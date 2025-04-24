@@ -20,6 +20,7 @@ feign:
       login: /login
       get-user-info: /info
       update-username: /update-username
+      update-user-photo: /update-user-photo
       get-user-by-email: /by-email
 
 jwt:

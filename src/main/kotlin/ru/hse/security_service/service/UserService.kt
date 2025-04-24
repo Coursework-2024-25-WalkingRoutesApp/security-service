@@ -87,6 +87,15 @@ class UserService(
         }
     }
 
+    fun updateUserPhoto(userId: UUID, photoUrl: String): String {
+        return try {
+            databaseProviderApi.updateUserPhoto(userId, photoUrl).body.toString()
+        } catch (e: Exception) {
+            logger.error("Error while updating user photo", e)
+            ""
+        }
+    }
+
     companion object {
         private val logger = LoggerFactory.getLogger(UserService::class.java)
     }

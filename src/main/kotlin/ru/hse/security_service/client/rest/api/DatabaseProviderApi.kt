@@ -35,6 +35,12 @@ interface DatabaseProviderApi {
         @RequestParam("userId") userId: UUID
     ): ResponseEntity<String>
 
+    @PutMapping("\${feign.user-api.endpoints.update-user-photo}")
+    fun updateUserPhoto(
+        @RequestParam("userId") userId: UUID,
+        @RequestParam("photoUrl") photoUrl: String
+    ): ResponseEntity<String>
+
     @GetMapping("\${feign.user-api.endpoints.get-user-by-email}")
     fun getUserByEmail(@RequestParam("email") email: String): UserSecurityDto?
 }
