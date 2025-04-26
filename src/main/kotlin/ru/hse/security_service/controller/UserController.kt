@@ -54,6 +54,39 @@ class UserController(
         }
     }
 
+    @PutMapping(SEND_VERIFICATION_CODE_URL)
+    fun sendVerificationCode(
+        @AuthenticationPrincipal user: User?,
+        @RequestParam email: String
+    ): ResponseEntity<Any> {
+        return withUserId(user) { userId ->
+            userService.sendVerificationCode(userId, email).let{
+                ResponseEntity.status(it.statusCode).body(it.body)
+            }
+        }
+    }
+
+    @GetMapping(CHECK_VERIFIED_URL)
+    fun checkVerified(@AuthenticationPrincipal user: User?): ResponseEntity<Any> {
+        return withUserId(user) { userId ->
+            userService.checkVerified(userId).let{
+                ResponseEntity.status(it.statusCode).body(it.body)
+            }
+        }
+    }
+
+    @GetMapping(CHECK_VERIFICATION_CODE_URL)
+    fun checkVerificationCode(
+        @AuthenticationPrincipal user: User?,
+        @RequestParam verificationCode: String
+    ): ResponseEntity<Any> {
+        return withUserId(user) { userId ->
+            userService.checkVerificationCode(userId, verificationCode).let{
+                ResponseEntity.status(it.statusCode).body(it.body)
+            }
+        }
+    }
+
     private fun withUserId(user: User?, block: (UUID) -> ResponseEntity<Any>): ResponseEntity<Any> {
         val userId = user?.id
         return if (userId != null) {
