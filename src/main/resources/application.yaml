@@ -8,12 +8,14 @@ spring:
         config:
           database-provider:
             url: http://${DEV_ENV_HOST}:8081
+          notification-service:
+            url: http://${DEV_ENV_HOST}:8083
 
 server:
   port: 8082
 
 feign:
-  user-api:
+  data-provider-api:
     base-path: /api/data-provider/security
     endpoints:
       register: /register
@@ -22,6 +24,14 @@ feign:
       update-username: /update-username
       update-user-photo: /update-user-photo
       get-user-by-email: /by-email
+      save-verification-code: /save-verification-code
+      check-verified: /check-verified
+      get-verification-code: /get-verification-code
+      update-verification-status: /update-verification-status
+  notification-service-api:
+    base-path: /api/notification-service/mail
+    endpoints:
+      send-email: /send-mail
 
 jwt:
   secret: {JWT_SECRET}

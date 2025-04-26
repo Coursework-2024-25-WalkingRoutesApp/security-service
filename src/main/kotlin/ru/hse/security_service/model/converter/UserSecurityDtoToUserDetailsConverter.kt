@@ -16,6 +16,7 @@ class UserSecurityDtoToUserDetailsConverter : Converter<UserSecurityDto, UserDet
             email = source.email,
             password = source.password,
             role = source.roles.map { User.AuthorityType.valueOf(it) }
-                .firstOrNull() ?: User.AuthorityType.DEFAULT
+                .firstOrNull() ?: User.AuthorityType.DEFAULT,
+            isVerified = source.isVerified
         )
 }

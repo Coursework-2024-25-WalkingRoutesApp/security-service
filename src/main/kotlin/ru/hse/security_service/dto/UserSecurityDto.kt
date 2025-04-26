@@ -7,5 +7,6 @@ class UserSecurityDto(
     var username: String,
     var email: String,
     var password: String,
-    var roles: List<String>
+    var roles: List<String>,
+    var isVerified: Boolean,
 )

@@ -13,7 +13,9 @@ data class User(
 
     private var password: String,
 
-    val role: AuthorityType? = AuthorityType.DEFAULT
+    val role: AuthorityType? = AuthorityType.DEFAULT,
+
+    val isVerified: Boolean = false
 ) : UserDetails {
 
     override fun getAuthorities(): MutableList<AuthorityType?> = mutableListOf(role)
