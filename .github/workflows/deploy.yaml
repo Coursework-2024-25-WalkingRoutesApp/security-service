@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - release
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Build JAR
+        run: ./gradlew clean bootJar -x test
+
+      - name: Verify JAR exists
+        run: ls -la build/libs/
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile
+          push: false
+          load: true
+          tags: user/security-service:latest
+          build-args: |
+            DEV_ENV_HOST_DATA=${{ secrets.DEV_ENV_HOST_DATA }}
+            DEV_ENV_HOST_NOTIFICATION=${{ secrets.DEV_ENV_HOST_NOTIFICATION }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}
+            SERVER_PORT=${{ secrets.SERVER_PORT }}
+
+      - name: Deploy Docker container
+        run: docker run -d --network walking_routes_network --name security-service -e DEV_ENV_HOST_DATA=${{ secrets.DEV_ENV_HOST_DATA }} -e DEV_ENV_HOST_NOTIFICATION=${{ secrets.DEV_ENV_HOST_NOTIFICATION }} -e JWT_SECRET=${{ secrets.JWT_SECRET }} -e JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }} -p ${{ secrets.SERVER_PORT_PUBLIC }}:${{ secrets.SERVER_PORT }} user/security-service:latest
