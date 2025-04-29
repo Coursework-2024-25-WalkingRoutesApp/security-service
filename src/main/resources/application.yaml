@@ -7,9 +7,9 @@ spring:
       client:
         config:
           database-provider:
-            url: http://${DEV_ENV_HOST}:8081
+            url: http://${DEV_ENV_HOST_DATA}:8081
           notification-service:
-            url: http://${DEV_ENV_HOST}:8083
+            url: http://${DEV_ENV_HOST_NOTIFICATION}:8083
 
 server:
   port: 8082
@@ -35,3 +35,4 @@ feign:
 
 jwt:
   secret: {JWT_SECRET}
+  expiration: {JWT_EXPIRATION}

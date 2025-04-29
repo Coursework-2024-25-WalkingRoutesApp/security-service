@@ -15,7 +15,7 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 @Service
 @ExperimentalEncodingApi
 class JwtService(
-    jwtProperties: JwtProperties
+    private val jwtProperties: JwtProperties,
 ) {
 
     private val secretKey: SecretKey = Keys.hmacShaKeyFor(Base64.decode(jwtProperties.secret))
@@ -52,7 +52,7 @@ class JwtService(
             .claims(claims)
             .subject(subject)
             .issuedAt(Date(System.currentTimeMillis()))
-            .expiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 hours
+            .expiration(Date(System.currentTimeMillis() + jwtProperties.expiration))
             .issuer("spring-security")
             .signWith(secretKey)
             .compact()
