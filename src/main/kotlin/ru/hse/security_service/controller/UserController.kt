@@ -60,7 +60,7 @@ class UserController(
         @RequestParam email: String
     ): ResponseEntity<Any> {
         return withUserId(user) { userId ->
-            userService.sendVerificationCode(userId, email).let{
+            userService.sendVerificationCode(userId, email, user!!.userName).let{
                 ResponseEntity.status(it.statusCode).body(it.body)
             }
         }
