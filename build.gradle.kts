@@ -23,6 +23,8 @@ val kotlinTestJunit5Version: String by project
 val springBootStarterVersion: String by project
 val springCloudVersion: String by project
 val springSecurityTestVersion: String by project
+val springKafkaVersion: String by project
+val springKafkaTestVersion: String by project
 val jacksonModuleKotlinVersion: String by project
 val jjwtVersion: String by project
 val junitPlatformLauncherVersion: String by project
@@ -38,10 +40,12 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	implementation("org.springframework.kafka:spring-kafka:$springKafkaVersion")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootStarterVersion")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinTestJunit5Version")
 	testImplementation("org.springframework.security:spring-security-test:$springSecurityTestVersion")
+	testImplementation("org.springframework.kafka:spring-kafka-test:$springKafkaTestVersion")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion")
 }
 

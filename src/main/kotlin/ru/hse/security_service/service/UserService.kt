@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import ru.hse.security_service.client.rest.api.DatabaseProviderApi
-import ru.hse.security_service.client.rest.api.NotificationServiceApi
 import ru.hse.security_service.dto.EmailRequest
 import ru.hse.security_service.dto.UserDto
+import ru.hse.security_service.service.notifier.NotifierService
 import java.util.*
 import kotlin.io.encoding.ExperimentalEncodingApi
 
@@ -20,7 +20,7 @@ class UserService(
     private val jwtService: JwtService,
     private val passwordEncoder: PasswordEncoder,
     private val databaseProviderApi: DatabaseProviderApi,
-    private val notificationServiceApi: NotificationServiceApi
+    private val notifierService: NotifierService
 ) {
 
     fun registerNewUser(name: String, email: String, password: String): ResponseEntity<String> {
@@ -35,7 +35,7 @@ class UserService(
 
                 logger.info("User with email $email successfully registered")
 
-                sendVerificationCode(userDetails.id!!, email)
+                sendVerificationCode(userDetails.id!!, email, name)
 
                 ResponseEntity.status(HttpStatus.CREATED).body(jwt)
             } else {
@@ -102,7 +102,7 @@ class UserService(
         }
     }
 
-    fun sendVerificationCode(userId: UUID, email: String): ResponseEntity<String> {
+    fun sendVerificationCode(userId: UUID, email: String, name: String): ResponseEntity<String> {
         return try {
             val verificationCode = (100_000..999_999).random().toString()
 
@@ -114,11 +114,12 @@ class UserService(
                     .body(saveCodeResponse.body ?: "Ошибка при сохранении кода подтверждения")
             }
 
-            val sendEmailResponse = notificationServiceApi.sendEmail(
+            val sendEmailResponse = notifierService.send(
                 EmailRequest(
                     subject = "Код подтверждения для Пойдем.Daily",
                     targetEmail = email,
-                    text = "Твой код подтверждения: $verificationCode"
+                    text = "Твой код подтверждения: $verificationCode",
+                    name = name
                 )
             )
             if (!sendEmailResponse.statusCode.is2xxSuccessful) {

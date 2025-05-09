@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-gateway
+    name: security-service
 
   cloud:
     openfeign:
@@ -10,6 +10,23 @@ spring:
             url: http://${DEV_ENV_HOST_DATA}:8081
           notification-service:
             url: http://${DEV_ENV_HOST_NOTIFICATION}:8083
+
+  kafka:
+    topic:
+      verify-user-email: verify-user-email
+    bootstrap-servers: ${DEV_ENV_HOST_KAFKA}:${DEV_ENV_PORT_KAFKA}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        retries: 5
+        retry.backoff.ms: 1000
+        acks: 1
+        spring:
+          json:
+            add:
+              type:
+                headers: false
 
 server:
   port: 8082
@@ -36,3 +53,6 @@ feign:
 jwt:
   secret: {JWT_SECRET}
   expiration: {JWT_EXPIRATION}
+
+notification-service:
+  transport-type: {NOTIFICATION_SERVICE_TRANSPORT_TYPE}
