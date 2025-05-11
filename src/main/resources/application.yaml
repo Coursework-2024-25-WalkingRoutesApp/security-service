@@ -56,3 +56,16 @@ jwt:
 
 notification-service:
   transport-type: {NOTIFICATION_SERVICE_TRANSPORT_TYPE}
+
+management:
+  endpoints.web.exposure.include: 'prometheus, health, info, metrics'
+  metrics:
+    enable:
+      all: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
