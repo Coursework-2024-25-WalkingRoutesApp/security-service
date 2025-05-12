@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
+import ru.hse.security_service.api.UserControllerApi
 import ru.hse.security_service.model.User
 import ru.hse.security_service.service.UserService
 import java.util.*
@@ -14,9 +15,10 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 @ExperimentalEncodingApi
 class UserController(
     private val userService: UserService
-) {
+) : UserControllerApi {
+
     @PostMapping(REGISTER_URL)
-    fun register(
+    override fun register(
         @RequestParam username: String,
         @RequestParam email: String,
         @RequestParam password: String
@@ -24,18 +26,18 @@ class UserController(
         userService.registerNewUser(username, email, password)
 
     @GetMapping(LOGIN_URL)
-    fun login(@RequestParam email: String, @RequestParam password: String): ResponseEntity<String> =
+    override fun login(@RequestParam email: String, @RequestParam password: String): ResponseEntity<String> =
         userService.login(email, password)
 
     @GetMapping(GET_USER_INFO_URL)
-    fun getUserInfo(@AuthenticationPrincipal user: User?): ResponseEntity<Any> {
+    override fun getUserInfo(@AuthenticationPrincipal user: User?): ResponseEntity<Any> {
         return withUserId(user) { userId ->
             ResponseEntity.ok(userService.getUserInfo(userId))
         }
     }
 
     @PutMapping(UPDATE_USERNAME_URL)
-    fun updateUsername(
+    override fun updateUsername(
         @AuthenticationPrincipal user: User?,
         @RequestParam newUsername: String
     ): ResponseEntity<Any> {
@@ -45,7 +47,7 @@ class UserController(
     }
 
     @PutMapping(UPDATE_USER_PHOTO_URL)
-    fun updateUserPhoto(
+    override fun updateUserPhoto(
         @AuthenticationPrincipal user: User?,
         @RequestParam photoUrl: String
     ): ResponseEntity<Any> {
@@ -55,7 +57,7 @@ class UserController(
     }
 
     @PutMapping(SEND_VERIFICATION_CODE_URL)
-    fun sendVerificationCode(
+    override fun sendVerificationCode(
         @AuthenticationPrincipal user: User?,
         @RequestParam email: String
     ): ResponseEntity<Any> {
@@ -67,7 +69,7 @@ class UserController(
     }
 
     @GetMapping(CHECK_VERIFIED_URL)
-    fun checkVerified(@AuthenticationPrincipal user: User?): ResponseEntity<Any> {
+    override fun checkVerified(@AuthenticationPrincipal user: User?): ResponseEntity<Any> {
         return withUserId(user) { userId ->
             userService.checkVerified(userId).let{
                 ResponseEntity.status(it.statusCode).body(it.body)
@@ -76,7 +78,7 @@ class UserController(
     }
 
     @GetMapping(CHECK_VERIFICATION_CODE_URL)
-    fun checkVerificationCode(
+    override fun checkVerificationCode(
         @AuthenticationPrincipal user: User?,
         @RequestParam verificationCode: String
     ): ResponseEntity<Any> {
