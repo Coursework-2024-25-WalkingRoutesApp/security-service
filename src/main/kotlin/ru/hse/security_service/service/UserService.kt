@@ -118,7 +118,7 @@ class UserService(
                 EmailRequest(
                     subject = "Код подтверждения для Пойдем.Daily",
                     targetEmail = email,
-                    text = "Твой код подтверждения: $verificationCode",
+                    text = verificationCode,
                     name = name
                 )
             )

@@ -29,10 +29,12 @@ val jacksonModuleKotlinVersion: String by project
 val jjwtVersion: String by project
 val junitPlatformLauncherVersion: String by project
 val micrometerJvmExtrasVersion: String by project
+val springDocVersion: String by project
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security:$springBootStarterVersion")
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootStarterVersion")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
 
 	implementation("io.jsonwebtoken:jjwt:$jjwtVersion")
 
