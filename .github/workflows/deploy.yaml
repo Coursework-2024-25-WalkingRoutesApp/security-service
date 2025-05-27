@@ -44,6 +44,9 @@ jobs:
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}
             SERVER_PORT=${{ secrets.SERVER_PORT }}
+            DEV_ENV_HOST_KAFKA=${{ secrets.DEV_ENV_HOST_KAFKA }}
+            DEV_ENV_PORT_KAFKA=${{ secrets.DEV_ENV_PORT_KAFKA }}
+            NOTIFICATION_SERVICE_TRANSPORT_TYPE=${{ secrets.NOTIFICATION_SERVICE_TRANSPORT_TYPE }}
 
       - name: Stop and remove existing container (if any)
         run: docker rm -f security-service || true
@@ -56,4 +59,7 @@ jobs:
             -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
             -e JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }} \
             -p ${{ secrets.SERVER_PORT_PUBLIC }}:${{ secrets.SERVER_PORT }} \
+            -e DEV_ENV_HOST_KAFKA=${{ secrets.DEV_ENV_HOST_KAFKA }} \
+            -e DEV_ENV_PORT_KAFKA=${{ secrets.DEV_ENV_PORT_KAFKA }} \
+            -e NOTIFICATION_SERVICE_TRANSPORT_TYPE=${{ secrets.NOTIFICATION_SERVICE_TRANSPORT_TYPE }} \
             user/security-service:latest

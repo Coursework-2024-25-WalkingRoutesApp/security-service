@@ -55,7 +55,7 @@ jwt:
   expiration: {JWT_EXPIRATION}
 
 notification-service:
-  transport-type: {NOTIFICATION_SERVICE_TRANSPORT_TYPE}
+  transport-type: ${NOTIFICATION_SERVICE_TRANSPORT_TYPE}
 
 management:
   endpoints.web.exposure.include: 'prometheus, health, info, metrics'
