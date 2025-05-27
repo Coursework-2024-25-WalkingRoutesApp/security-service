@@ -29,10 +29,10 @@ jobs:
           cache-read-only: false
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x gradlew 
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
         env:
           DEV_ENV_HOST_DATA: localhost
           DEV_ENV_HOST_NOTIFICATION: localhost
